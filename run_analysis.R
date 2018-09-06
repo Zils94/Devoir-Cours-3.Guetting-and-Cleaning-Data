@@ -18,13 +18,11 @@ activity<-read.table("activity_labels.txt")
 X_test<-read.table("test/X_test.txt")
 y_test<-read.table("test/y_test.txt")
 subject_test<-read.table("test/subject_test.txt")
-body_acc_x_test<-read.table("test/Inertial Signals/body_acc_x_test.txt")
 
 #Train
 X_train<-read.table("train/X_train.txt")
 y_train<-read.table("train/y_train.txt")
 subject_train<-read.table("train/subject_train.txt")
-body_acc_x_train<-read.table("train/Inertial Signals/body_acc_x_train.txt")
 
 # Step 1 : Merging File
 
@@ -42,12 +40,7 @@ names(df)<-c("subject",as.character(features[,2]),"Activity")
       
 df<-df[,c("subject",grep("[Mm]ean\\(|[Ss]td",names(df),value = TRUE),"Activity")]
 
-# Step 3 : Use descriptive activity names to name the variable Activity
 
-df<-merge(df,activity,by.x = 'Activity', by.y = 'V1', all.x = TRUE)
-df <- df %>%
-  select(-Activity) %>%
-  rename(Activity = V2)
 
 # Step 5 : Creating a tidy data with avg of each variables by activity and subject
 
