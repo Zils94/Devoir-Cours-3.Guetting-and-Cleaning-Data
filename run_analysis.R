@@ -41,6 +41,12 @@ names(df)<-c("subject",as.character(features[,2]),"Activity")
 df<-df[,c("subject",grep("[Mm]ean\\(|[Ss]td",names(df),value = TRUE),"Activity")]
 
 
+# Step 3 : Use descriptive activity names to name the variable Activity
+
+df<-merge(df,activity,by.x = 'Activity', by.y = 'V1', all.x = TRUE)
+df <- df %>%
+  select(-Activity) %>%
+  rename(Activity = V2)
 
 # Step 5 : Creating a tidy data with avg of each variables by activity and subject
 
